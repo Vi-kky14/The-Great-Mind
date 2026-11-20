@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Great Mind</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fc;
+  color: #17223b;
+  text-align: center;
+}
+header {
+  padding: 22px;
+  background: #172b55;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
+main {
+  max-width: 650px;
+  margin: 85px auto;
+  padding: 20px;
+}
+.logo { font-size: 65px; }
+h1 { font-size: 38px; color: #244b9b; }
+p { color: #64718b; }
+.search-box {
+  display: flex;
+  background: white;
+  border: 2px solid #dce3f1;
+  border-radius: 30px;
+  padding: 7px;
+  margin-top: 30px;
+}
+input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 13px;
+  font-size: 16px;
+}
+button {
+  background: #315bb5;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 13px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.web-button {
+  margin-top: 15px;
+  background: #172b55;
+}
+#results { margin-top: 30px; text-align: left; }
+.result {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  margin: 12px 0;
+  box-shadow: 0 2px 8px #0000000c;
+}
+.result h3 { color: #315bb5; }
+footer {
+  padding: 25px;
+  color: #718096;
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+<header>🧠 THE GREAT MIND</header>
+<main>
+  <div class="logo">🌍</div>
+  <h1>The Great Mind</h1>
+  <p>Discover. Learn. Explore.</p>
+  <p>Your gateway to knowledge and information.</p>
+  <div class="search-box">
+    <input id="search" type="search"
+      placeholder="What would you like to know?">
+    <button onclick="searchMind()">Search</button>
+  </div>
+  <button class="web-button" onclick="searchWeb()">
+    Search the wider internet 🌐
+  </button>
+  <div id="results"></div>
+</main>
+<footer>
+  The Great Mind © 2026 | Knowledge Without Limits
+</footer>
+<script>
+const knowledge = [
+  {
+    title: "What is photosynthesis?",
+    text: "Photosynthesis is the process by which green plants use sunlight, water and carbon dioxide to make their food."
+  },
+  {
+    title: "What is science?",
+    text: "Science is the systematic study of the natural world through observation and experiments."
+  },
+  {
+    title: "What is the human heart?",
+    text: "The human heart is a muscular organ that pumps blood around the body."
+  },
+  {
+    title: "What is mathematics?",
+    text: "Mathematics is the study of numbers, shapes, quantities and patterns."
+  },
+  {
+    title: "What is education?",
+    text: "Education is the process of gaining knowledge, skills and understanding."
+  },
+  {
+    title: "What is the internet?",
+    text: "The internet is a worldwide network that connects computers and allows people to share information."
+  }
+];
+
+function searchMind() {
+  const query = document.getElementById("search")
+    .value.trim().toLowerCase();
+  const results = document.getElementById("results");
+
+  if (!query) {
+    results.innerHTML = "<p>Please enter something to search.</p>";
+    return;
+  }
+
+  const matches = knowledge.filter(item =>
+    (item.title + " " + item.text)
+      .toLowerCase().includes(query)
+  );
+
+  if (matches.length === 0) {
+    results.innerHTML =
+      "<p>No matching information in our collection yet. Try searching the wider internet!</p>";
+    return;
+  }
+
+  results.innerHTML = matches.map(item => `
+    <div class="result">
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+      <small>Source: The Great Mind Knowledge Collection</small>
+    </div>
+  `).join("");
+}
+
+function searchWeb() {
+  const query = document.getElementById("search")
+    .value.trim();
+
+  if (!query) {
+    alert("Please enter something to search.");
+    return;
+  }
+
+  window.open(
+    "https://duckduckgo.com/?q=" + encodeURIComponent(query),
+    "_blank"
+  );
+}
+
+document.getElementById("search")
+  .addEventListener("keydown", function(event) {
+    if (event.key === "Enter") searchMind();
+  });
+</script>
+</body>
+</html>
